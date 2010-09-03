@@ -66,6 +66,15 @@
 			   </config>
         </TCEforms>
       </limit>
+      <crop>
+        <TCEforms>
+        <label>LLL:EXT:ws_wordpressgrab/locallang.xml:pi_flexform.crop</label>
+        <config>
+          <type>input</type>
+          <size>10</size>
+         </config>
+        </TCEforms>
+      </crop>
       <wrapTitle>
         <TCEforms>
         <label>LLL:EXT:ws_wordpressgrab/locallang.xml:pi_flexform.wrapTitle</label>

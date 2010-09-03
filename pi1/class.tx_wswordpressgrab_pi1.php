@@ -74,7 +74,7 @@ class tx_wswordpressgrab_pi1 extends tslib_pibase {
       $mD = mysql_select_db($this->conf['database'], $mConnection);
       
       mysql_query("SET NAMES 'utf8'", $mConnection);
-      $sSelect = "SELECT * FROM  wp_posts WHERE post_password='' AND post_type='post' ORDER BY post_date DESC LIMIT " . $this->conf['limit'];      
+      $sSelect = "SELECT * FROM  wp_posts WHERE post_password='' AND post_type='post' AND post_status='publish' ORDER BY post_date DESC LIMIT " . $this->conf['limit'];      
       $mRes = mysql_query($sSelect, $mConnection);
       
       if(!$mRes){
@@ -83,11 +83,12 @@ class tx_wswordpressgrab_pi1 extends tslib_pibase {
         //die($sTmpError);
       }
       
+      
       while ($aRow = mysql_fetch_array($mRes)) {
         $sLink = '<a href="' . $aRow['guid'] . '" id="post-url-'. $aRow['ID'] .'" target="_blank">' . $aRow['post_title'] . '</a>';        
         $sTitle = $this->cObj->stdWrap($sLink, $this->conf['wrapTitle']);
-        $sDescription = $this->cObj->stdWrap(nl2br($aRow['post_content']), $this->conf['wrapDescription']);
-        $sDescription = preg_replace('/\[caption[^]]*caption="([^"]*)"[^]]*\](.*?)\[\/caption\]/s', '<p>$1</p>$2', $sDescription);
+        $sDescription = preg_replace('/\[caption[^]]*caption="([^"]*)"[^]]*\](.*?)\[\/caption\]/s', '<p>$1</p>$2', $aRow['post_content']);        
+        $sDescription = $this->cObj->stdWrap($sDescription, $this->conf['wrapDescription']);
         $sAddThisCode = $this->conf['addthis'];
         $sAddThisPostCode = $this->sGetAddThisPostCode($aRow['ID'], $aRow['guid'], $aRow['post_title']);
         $sContent .= $this->cObj->stdWrap($sTitle . $sDescription . $sAddThisCode . $sAddThisPostCode , $this->conf['wrapPost']);
@@ -116,7 +117,7 @@ class tx_wswordpressgrab_pi1 extends tslib_pibase {
 addthis.button('#share-post-" . $iPostId . "', {" . $this->conf['addthisconf'] . "}, {url: \"" . $sUrl . "\", title: \"" . $sTitle . "\"});
 </script>
 ";
-	  return $sContent;
+	  return '<div class="addthis">' . $sContent . '</div>';
 	}
 
 /**
@@ -193,8 +194,13 @@ addthis.addEventListener('addthis.menu.share', eventHandler);
     $this->conf['password']   = trim($this->mGetFlexForm('sDEF', 'password'));
     $this->conf['database']   = trim($this->mGetFlexForm('sDEF', 'database'));
     $this->conf['limit']   = intval($this->mGetFlexForm('s_add', 'limit'));
+    $this->conf['crop']   = intval($this->mGetFlexForm('s_add', 'crop'));
     $this->conf['wrapTitle']['stdWrap.']['wrap']   = trim($this->mGetFlexForm('s_add', 'wrapTitle'));
     $this->conf['wrapDescription']['stdWrap.']['wrap']   = trim($this->mGetFlexForm('s_add', 'wrapDescription'));
+    $this->conf['wrapDescription']['stdWrap.']['br'] = 1;
+    if($this->conf['crop']) {
+      $this->conf['wrapDescription']['stdWrap.']['crop'] = $this->conf['crop'] . ' | ... | 1';  
+    }
     $this->conf['wrapPost']['stdWrap.']['wrap']   = trim($this->mGetFlexForm('s_add', 'wrapPost'));
     $this->conf['addthisuser']   = trim($this->mGetFlexForm('s_add', 'addthisuser'));
     $this->conf['addthisconf']   = trim($this->mGetFlexForm('s_add', 'addthisconf'));
@@ -219,6 +225,9 @@ addthis.addEventListener('addthis.menu.share', eventHandler);
     //Set default values
 	  if(!$this->conf['limit']) {
       $this->conf['limit'] = 20;
+    }
+	  if(!$this->conf['crop']) {
+      $this->conf['crop'] = '';
     }
     if(!$this->conf['wrapTitle']['stdWrap.']['wrap']) {
       $this->conf['wrapTitle']['stdWrap.']['wrap'] = '<div class="title"><h2>|</h2></div>';
