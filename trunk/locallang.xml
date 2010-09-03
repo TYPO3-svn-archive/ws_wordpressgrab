@@ -16,6 +16,7 @@
       
       <label index="pi_flexform.sheet_add">Additional Settings</label>
       <label index="pi_flexform.limit">Post Limit</label>
+      <label index="pi_flexform.crop">Description crop</label>
       <label index="pi_flexform.wrapTitle">Title wrap</label>
       <label index="pi_flexform.wrapDescription">Description Wrap</label>
       <label index="pi_flexform.wrapPost">Post Wrap</label>
