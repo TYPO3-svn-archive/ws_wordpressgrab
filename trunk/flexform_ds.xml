@@ -47,6 +47,14 @@
         </config>
         </TCEforms>
       </database>
+      <log>
+        <TCEforms>
+        <label>LLL:EXT:ws_wordpressgrab/locallang.xml:pi_flexform.log</label>
+        <config>
+          <type>check</type>
+        </config>
+        </TCEforms>
+      </log>
     </el>
   </ROOT>
   </sDEF>

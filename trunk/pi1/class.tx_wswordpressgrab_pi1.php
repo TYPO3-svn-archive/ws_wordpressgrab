@@ -120,15 +120,18 @@ addthis.button('#share-post-" . $iPostId . "', {" . $this->conf['addthisconf'] .
 	  return '<div class="addthis">' . $sContent . '</div>';
 	}
 
-/**
- * Set hadler for sharing and send ajax respond to log sharing. Uses prototype for ajax
- * @param $sUserName
- * @return string
- */	
-protected function sGetAddThisHandler($sUserName) {
-    $sHeader = "<script type=\"text/javascript\" src=\"typo3/contrib/prototype/prototype.js\"></script>";
+  /**
+  * Set hadler for sharing and send ajax respond to log sharing. Uses prototype for ajax
+  * @param $sUserName
+  * @return string
+  */	
+  protected function sGetAddThisHandler($sUserName) {
+    $sHeader = '';
     $sHeader .= "<script type=\"text/javascript\" src=\"http://s7.addthis.com/js/250/addthis_widget.js#username=". $sUserName ."\"></script>";
-    $sHeader .= "   
+    if($this->conf['log']) {
+      $sHeader .= "<script type=\"text/javascript\" src=\"typo3/contrib/prototype/prototype.js\"></script>";  
+    
+      $sHeader .= "   
 <script type=\"text/javascript\">
 function eventHandler(evt) { 
   urlPost = evt.data.url;
@@ -145,10 +148,11 @@ function eventHandler(evt) {
      }     
    );
 } 
-
   
 addthis.addEventListener('addthis.menu.share', eventHandler);
 </script>";     
+    }
+    
     return $sHeader;
   }
   
@@ -193,6 +197,7 @@ addthis.addEventListener('addthis.menu.share', eventHandler);
     $this->conf['user']   = trim($this->mGetFlexForm('sDEF', 'user'));
     $this->conf['password']   = trim($this->mGetFlexForm('sDEF', 'password'));
     $this->conf['database']   = trim($this->mGetFlexForm('sDEF', 'database'));
+    $this->conf['log']   = trim($this->mGetFlexForm('sDEF', 'log'));
     $this->conf['limit']   = intval($this->mGetFlexForm('s_add', 'limit'));
     $this->conf['crop']   = intval($this->mGetFlexForm('s_add', 'crop'));
     $this->conf['wrapTitle']['stdWrap.']['wrap']   = trim($this->mGetFlexForm('s_add', 'wrapTitle'));
@@ -223,6 +228,9 @@ addthis.addEventListener('addthis.menu.share', eventHandler);
     }
     
     //Set default values
+	if(!$this->conf['log']) {
+      $this->conf['log'] = 0;
+    }
 	  if(!$this->conf['limit']) {
       $this->conf['limit'] = 20;
     }
