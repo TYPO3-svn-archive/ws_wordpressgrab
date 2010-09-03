@@ -86,11 +86,11 @@ class tx_wswordpressgrab_pi1 extends tslib_pibase {
       while ($aRow = mysql_fetch_array($mRes)) {
         $sLink = '<a href="' . $aRow['guid'] . '" id="post-url-'. $aRow['ID'] .'" target="_blank">' . $aRow['post_title'] . '</a>';        
         $sTitle = $this->cObj->stdWrap($sLink, $this->conf['wrapTitle']);
-        $sDescription = $this->cObj->stdWrap($aRow['post_content'], $this->conf['wrapDescription']);
+        $sDescription = $this->cObj->stdWrap(nl2br($aRow['post_content']), $this->conf['wrapDescription']);
         $sDescription = preg_replace('/\[caption[^]]*caption="([^"]*)"[^]]*\](.*?)\[\/caption\]/s', '<p>$1</p>$2', $sDescription);
         $sAddThisCode = $this->conf['addthis'];
-        $sContent .= $this->cObj->stdWrap($sTitle . $sDescription . $sAddThisCode , $this->conf['wrapPost']);
-        $sContent .= $this->sGetAddThisPostCode($aRow['ID'], $aRow['guid'], $aRow['post_title']);
+        $sAddThisPostCode = $this->sGetAddThisPostCode($aRow['ID'], $aRow['guid'], $aRow['post_title']);
+        $sContent .= $this->cObj->stdWrap($sTitle . $sDescription . $sAddThisCode . $sAddThisPostCode , $this->conf['wrapPost']);
       }
       $GLOBALS['TSFE']->additionalHeaderData['tx_wswordpressgrab_pi1'] = $this->sGetAddThisHandler($this->conf['addthisuser']);
       
