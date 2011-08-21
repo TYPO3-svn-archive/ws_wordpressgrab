@@ -74,6 +74,14 @@
 			   </config>
         </TCEforms>
       </limit>
+      <hideDescription>
+        <TCEforms>
+        <label>LLL:EXT:ws_wordpressgrab/locallang.xml:pi_flexform.hideDescription</label>
+        <config>
+          <type>check</type>
+         </config>
+        </TCEforms>
+      </hideDescription>
       <crop>
         <TCEforms>
         <label>LLL:EXT:ws_wordpressgrab/locallang.xml:pi_flexform.crop</label>
@@ -113,6 +121,14 @@
          </config>
         </TCEforms>
       </wrapPost>
+      <hideAddThis>
+        <TCEforms>
+        <label>LLL:EXT:ws_wordpressgrab/locallang.xml:pi_flexform.hideAddThis</label>
+        <config>
+          <type>check</type>
+         </config>
+        </TCEforms>
+      </hideAddThis>
       <addthisuser>
         <TCEforms>
         <label>LLL:EXT:ws_wordpressgrab/locallang.xml:pi_flexform.addthisuser</label>
