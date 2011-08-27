@@ -33,7 +33,7 @@ require_once(PATH_tslib.'class.tslib_pibase.php');
 /**
  * Plugin 'Wordpress Grabber' for the 'ws_wordpressgrab' extension.
  *
- * @author	Nikolay Orlenko <okolya@gmail.com>
+ * @author	Nikolay Orlenko <info@web-spectr.com>
  * @package	TYPO3
  * @subpackage	tx_wswordpressgrab
  */
@@ -72,9 +72,24 @@ class tx_wswordpressgrab_pi1 extends tslib_pibase {
 
     if(!count($this->aError)) {
       $mD = mysql_select_db($this->conf['database'], $mConnection);
+
+	  if(!empty($this->conf['category'])){
+		$joinCategory = " LEFT JOIN wp_term_relationships ON(wp_posts.ID = wp_term_relationships.object_id)
+LEFT JOIN wp_term_taxonomy ON(wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id)";
+		$whereCategory = " AND wp_term_taxonomy.term_id IN (".$this->conf['category'].") AND wp_term_taxonomy.taxonomy = 'category' ";
+	  }
+	  else {
+		$joinCategory = "";
+		$whereCategory = "";
+	  }
       
       mysql_query("SET NAMES 'utf8'", $mConnection);
-      $sSelect = "SELECT * FROM  wp_posts WHERE post_password='' AND post_type='post' AND post_status='publish' ORDER BY post_date DESC LIMIT " . $this->conf['limit'];      
+      $sSelect = "SELECT wp_posts.* FROM  wp_posts ". $joinCategory ." 
+	  WHERE post_password='' 
+	  ". $whereCategory ."
+	  AND post_type='post' 
+	  AND post_status='publish' 
+	  ORDER BY post_date DESC LIMIT " . $this->conf['limit'];      
       $mRes = mysql_query($sSelect, $mConnection);
       
       if(!$mRes){
@@ -89,8 +104,12 @@ class tx_wswordpressgrab_pi1 extends tslib_pibase {
         $sTitle = $this->cObj->stdWrap($sLink, $this->conf['wrapTitle']);
         $sDescription = preg_replace('/\[caption[^]]*caption="([^"]*)"[^]]*\](.*?)\[\/caption\]/s', '<p>$1</p>$2', $aRow['post_content']);        
         $sDescription = $this->cObj->stdWrap($sDescription, $this->conf['wrapDescription']);
+        if($this->conf['hideDescrtiption']) $sDescription = '';
         $sAddThisCode = $this->conf['addthis'];
         $sAddThisPostCode = $this->sGetAddThisPostCode($aRow['ID'], $aRow['guid'], $aRow['post_title']);
+        if($this->conf['hideAddThis']){
+        	$sAddThisCode = $sAddThisPostCode = '';
+        } 
         $sContent .= $this->cObj->stdWrap($sTitle . $sDescription . $sAddThisCode . $sAddThisPostCode , $this->conf['wrapPost']);
       }
       $GLOBALS['TSFE']->additionalHeaderData['tx_wswordpressgrab_pi1'] = $this->sGetAddThisHandler($this->conf['addthisuser']);
@@ -197,8 +216,10 @@ addthis.addEventListener('addthis.menu.share', eventHandler);
     $this->conf['user']   = trim($this->mGetFlexForm('sDEF', 'user'));
     $this->conf['password']   = trim($this->mGetFlexForm('sDEF', 'password'));
     $this->conf['database']   = trim($this->mGetFlexForm('sDEF', 'database'));
+	$this->conf['category']   = trim($this->mGetFlexForm('sDEF', 'category'));
     $this->conf['log']   = trim($this->mGetFlexForm('sDEF', 'log'));
     $this->conf['limit']   = intval($this->mGetFlexForm('s_add', 'limit'));
+    $this->conf['hideDescrtiption']   = intval($this->mGetFlexForm('s_add', 'hideDescription'));
     $this->conf['crop']   = intval($this->mGetFlexForm('s_add', 'crop'));
     $this->conf['wrapTitle']['stdWrap.']['wrap']   = trim($this->mGetFlexForm('s_add', 'wrapTitle'));
     $this->conf['wrapDescription']['stdWrap.']['wrap']   = trim($this->mGetFlexForm('s_add', 'wrapDescription'));
@@ -207,6 +228,7 @@ addthis.addEventListener('addthis.menu.share', eventHandler);
       $this->conf['wrapDescription']['stdWrap.']['crop'] = $this->conf['crop'] . ' | ... | 1';  
     }
     $this->conf['wrapPost']['stdWrap.']['wrap']   = trim($this->mGetFlexForm('s_add', 'wrapPost'));
+    $this->conf['hideAddThis']   = intval($this->mGetFlexForm('s_add', 'hideAddThis'));
     $this->conf['addthisuser']   = trim($this->mGetFlexForm('s_add', 'addthisuser'));
     $this->conf['addthisconf']   = trim($this->mGetFlexForm('s_add', 'addthisconf'));
     
