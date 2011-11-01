@@ -114,7 +114,7 @@ LEFT JOIN wp_term_taxonomy ON(wp_term_relationships.term_taxonomy_id = wp_term_t
       }
       $GLOBALS['TSFE']->additionalHeaderData['tx_wswordpressgrab_pi1'] = $this->sGetAddThisHandler($this->conf['addthisuser']);
       
-      mysql_free_result($aRes);  
+      mysql_free_result($mRes);  
     }
     if(count($this->aError)) {
       $sContent = implode("<br/>", $this->aError);      
