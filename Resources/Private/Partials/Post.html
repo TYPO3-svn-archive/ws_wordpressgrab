@@ -1,0 +1,31 @@
+<div class="post" xmlns:f="http://www.w3.org/1999/html">
+    <f:if condition="{settings.addThis.enable}==1">
+    <div class="addthis">
+        <a id="share-post-{post.wpId}"></a>
+        <script type="text/javascript">
+            var configTmp = '{settings.addThis.config}';
+            var urlTmp = '{post.url}';
+            var titleTmp = '{post.header}';
+            addthis.button('#share-post-{post.wpId}', configTmp, {url: urlTmp, title: titleTmp});
+        </script>
+    </div>
+    </f:if>
+
+    <div class="header"><h3><a href="{post.url}" id="post-url-{post.wpId}" target="_blank">{post.header}</a></h3></div>
+    <div class="date"><f:format.date format="d.m.Y - H:i:s">{post.publishDate}</f:format.date></div>
+
+    <f:if condition="{post.image}">
+        <div class="image"><f:image src="{post.image}" width="100px" alt="{post.header}" title="{post.header}" /></div>
+    </f:if>
+
+    <div class="description">
+    <f:if condition="{settings.description.crop} > 0">
+        <f:then>
+            <f:format.html><f:format.crop maxCharacters="{settings.description.crop}">{post.content}</f:format.crop></f:format.html>
+        </f:then>
+        <f:else>
+            <f:format.html>{post.content}</f:format.html>
+        </f:else>
+    </f:if>
+    </div>
+</div>

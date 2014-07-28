@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-05-08T23:56:29Z" product-name="wswordpressgrab">
+		<header/>
+		<body>
+
+			<trans-unit id="tx_wswordpressgrab_domain_model_post">
+				<source>Post</source>
+			</trans-unit>
+			<trans-unit id="tx_wswordpressgrab_domain_model_post.wp_id">
+				<source>Wp Id</source>
+			</trans-unit>
+            <trans-unit id="tx_wswordpressgrab_domain_model_post.crdate">
+                <source>Published date</source>
+            </trans-unit>
+            <trans-unit id="tx_wswordpressgrab_domain_model_post.tstamp">
+                <source>Modified date</source>
+            </trans-unit>
+			<trans-unit id="tx_wswordpressgrab_domain_model_post.header">
+				<source>Header</source>
+			</trans-unit>
+			<trans-unit id="tx_wswordpressgrab_domain_model_post.url">
+				<source>Url</source>
+			</trans-unit>
+			<trans-unit id="tx_wswordpressgrab_domain_model_post.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_wswordpressgrab_domain_model_post.content">
+				<source>Content</source>
+			</trans-unit>
+            <trans-unit id="tx_wswordpressgrab_domain_model_post.publish_date">
+                <source>Publish date</source>
+            </trans-unit>
+
+		</body>
+	</file>
+</xliff>

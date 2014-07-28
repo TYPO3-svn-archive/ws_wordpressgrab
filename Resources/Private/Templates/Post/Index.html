@@ -1,0 +1,24 @@
+<f:layout name="Default" />
+<f:section name="content">
+    <f:if condition="{settings.addThis.enable}==1">
+        <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username={settings.addThis.user}"></script>
+    </f:if>
+    <f:if condition="{posts -> f:count()} > 0">
+        <div class="posts-list">
+            <f:if condition="{settings.pagination.enable} == 1">
+                <f:then>
+                    <f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{itemsPerPage: settings.pagination.per_page, insertAbove: 1, insertBelow: 0, maximumNumberOfLinks: 1}">
+                        <f:for each="{paginatedPosts}" as="post">
+                            <f:render partial="Post" arguments="{post:post}"/>
+                        </f:for>
+                    </f:widget.paginate>
+                </f:then>
+                <f:else>
+                    <f:for each="{posts}" as="post">
+                        <f:render partial="Post" arguments="{post:post}"/>
+                    </f:for>
+                </f:else>
+            </f:if>
+        </div>
+    </f:if>
+</f:section>

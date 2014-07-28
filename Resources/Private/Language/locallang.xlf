@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-05-08T23:56:29Z" product-name="wswordpressgrab">
+		<header/>
+		<body>
+            <trans-unit id="tasks.grabber.name">
+                <source>Wordpress grabber</source>
+            </trans-unit>
+            <trans-unit id="tasks.grabber.description">
+                <source>Grab posts from external Wordpress resource</source>
+            </trans-unit>
+
+            <trans-unit id="tasks.grabber.host">
+                <source>Host</source>
+            </trans-unit>
+            <trans-unit id="tasks.grabber.username">
+                <source>Username</source>
+            </trans-unit>
+            <trans-unit id="tasks.grabber.password">
+                <source>Password</source>
+            </trans-unit>
+            <trans-unit id="tasks.grabber.database">
+                <source>Database</source>
+            </trans-unit>
+            <trans-unit id="tasks.grabber.table_prefix">
+                <source>Table prefix</source>
+            </trans-unit>
+            <trans-unit id="tasks.grabber.limit">
+                <source>Limit (number of records to be parsed)</source>
+            </trans-unit>
+            <trans-unit id="tasks.grabber.categories">
+                <source>Category IDs, comma separated</source>
+            </trans-unit>
+            <trans-unit id="tasks.grabber.pid">
+                <source>PID where posts should be stored</source>
+            </trans-unit>
+
+            <trans-unit id="tasks.grabber.empty.host">
+                <source>Empty hostname</source>
+            </trans-unit>
+            <trans-unit id="tasks.grabber.empty.username">
+                <source>Empty username</source>
+            </trans-unit>
+            <trans-unit id="tasks.grabber.empty.database">
+                <source>Empty database</source>
+            </trans-unit>
+            <trans-unit id="tasks.grabber.empty.posts">
+                <source>No posts in external resource</source>
+            </trans-unit>
+            <trans-unit id="tasks.grabber.invalid.connection">
+                <source>No connection to external host. </source>
+            </trans-unit>
+            <trans-unit id="tasks.grabber.invalid.database">
+                <source>It is not possible to connect to the external database. </source>
+            </trans-unit>
+
+			<trans-unit id="tx_wswordpressgrab_domain_model_post">
+				<source>Post</source>
+			</trans-unit>
+            <trans-unit id="tx_wswordpressgrab_domain_model_post.wp_id">
+				<source>Wordpress id</source>
+			</trans-unit>
+			<trans-unit id="tx_wswordpressgrab_domain_model_post.header">
+				<source>header</source>
+			</trans-unit>
+			<trans-unit id="tx_wswordpressgrab_domain_model_post.url">
+				<source>External Url</source>
+			</trans-unit>
+			<trans-unit id="tx_wswordpressgrab_domain_model_post.image">
+				<source>image</source>
+			</trans-unit>
+			<trans-unit id="tx_wswordpressgrab_domain_model_post.content">
+				<source>content</source>
+			</trans-unit>
+
+
+            <trans-unit id="pi_flexform.general">
+                <source>General</source>
+            </trans-unit>
+            <trans-unit id="pi_flexform.description_crop">
+                <source>Crop description</source>
+            </trans-unit>
+            <trans-unit id="pi_flexform.list_limit">
+                <source>Limit posts</source>
+            </trans-unit>
+            <trans-unit id="pi_flexform.pagination_enable">
+                <source>Enable pagination</source>
+            </trans-unit>
+            <trans-unit id="pi_flexform.pagination_per_page">
+                <source>Limit per page</source>
+            </trans-unit>
+            <trans-unit id="pi_flexform.addThis_enable">
+                <source>Enable "AddThis"</source>
+            </trans-unit>
+            <trans-unit id="pi_flexform.addThis_user">
+                <source>"Add This" username</source>
+            </trans-unit>
+            <trans-unit id="pi_flexform.addThis_config">
+                <source>"Add This" UI Configuration Options (http://www.addthis.com/help/client-api#configuration-ui)</source>
+            </trans-unit>
+        </body>
+	</file>
+</xliff>

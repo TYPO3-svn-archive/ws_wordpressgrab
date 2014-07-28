@@ -1,0 +1,14 @@
+plugin.tx_wswordpressgrab {
+	view {
+		templateRootPath = {$plugin.tx_wswordpressgrab.view.templateRootPath}
+		partialRootPath = {$plugin.tx_wswordpressgrab.view.partialRootPath}
+		layoutRootPath = {$plugin.tx_wswordpressgrab.view.layoutRootPath}
+	}
+	persistence {
+		storagePid = {$plugin.tx_wswordpressgrab.persistence.storagePid}
+	}
+	features {
+		# uncomment the following line to enable the new Property Mapper.
+		# rewrittenPropertyMapper = 1
+	}
+}
